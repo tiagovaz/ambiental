@@ -19,6 +19,7 @@ from django.contrib import admin
 from ambientalweb.views import *
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -32,4 +33,11 @@ urlpatterns = [
                       CompanyList.as_view(),
                       name='event'
                   ),
+                  url(
+                      r'^login/',
+                      'django.contrib.auth.views.login',
+                      name='login'
+                  ),
+                  url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name="logout"),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

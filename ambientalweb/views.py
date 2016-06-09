@@ -1,8 +1,9 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views import generic
 
 from ambiental.filters import CompanyFilter
 from ambientalweb.models import Company
-
 
 class CompanyList(generic.ListView):
     template_name = 'list.html'
@@ -12,6 +13,7 @@ class CompanyList(generic.ListView):
     def get_queryset(self):
         return CompanyFilter(self.request.GET, queryset=Company.objects.all())
 
+    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(CompanyList, self).dispatch(*args, **kwargs)
 
@@ -23,3 +25,6 @@ class CompanyList(generic.ListView):
         context['form'] = all_companies.form
 
         return context
+
+class Login(generic.TemplateView):
+    template_name = 'registration/login.html'

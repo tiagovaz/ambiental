@@ -135,3 +135,4 @@ FIXTURE_DIRS = (
 )
 
 FILTERS_HELP_TEXT_FILTER = False
+LOGIN_URL = '/login/'
