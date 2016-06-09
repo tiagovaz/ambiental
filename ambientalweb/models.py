@@ -126,6 +126,10 @@ class Address(models.Model):
         blank=True
     )
 
+    def get_full_address_html(self):
+        return u"%s, %s, %s <br> %s %s" % \
+               (self.street, self.number, self.city, self.state, self.postal_code)
+
     class Meta:
         verbose_name = "Endereço"
         verbose_name_plural = "Endereços"
@@ -151,8 +155,8 @@ class Company(models.Model):
     website = models.CharField("Website", max_length=254)
     twitter = models.CharField("Twitter", max_length=254)
     facebook = models.CharField("Facebook", max_length=254)
-    partnership = models.ManyToManyField("Partnership")
-    address = models.ForeignKey("Address")
+    partnership = models.ManyToManyField("Partnership", verbose_name="Parceria")
+    address = models.ForeignKey("Address", verbose_name="Endereço")
 
     class Meta:
         verbose_name = "Empresa"
@@ -161,6 +165,7 @@ class Company(models.Model):
     def __str__(self):
         return self.commercial_name
 
+@python_2_unicode_compatible
 class Partnership(models.Model):
     description = models.CharField("Tipo de parceria", max_length=200)
     start_date = models.DateField()
@@ -169,8 +174,8 @@ class Partnership(models.Model):
         verbose_name = "Parceria"
         verbose_name_plural = "Parcerias"
 
-def __str__(self):
-    return self.description
+    def __str__(self):
+        return self.description
 
 class EquipmentType(models.Model):
     description = models.CharField(
