@@ -143,18 +143,18 @@ class Address(models.Model):
 @python_2_unicode_compatible
 class Company(models.Model):
     """The main class for Ambiental."""
-    cnpj = models.CharField("CNPJ", max_length=200)
+    cnpj = models.CharField("CNPJ", max_length=200, null=True, blank=True)
     civil_name = models.CharField("Razão social", blank=True, max_length=200)
-    commercial_name = models.CharField('Nome fantasia', null=True, blank=True, max_length=200)
-    phone_main = models.CharField("Telefone 1", max_length=50)
-    phone_secondary = models.CharField("Telefone 2", max_length=50)
-    whatsapp = models.CharField("Whatsapp", max_length=50)
+    commercial_name = models.CharField('Nome fantasia', max_length=200)
+    phone_main = models.CharField("Telefone 1", max_length=50, null=True, blank=True)
+    phone_secondary = models.CharField("Telefone 2", max_length=50, null=True, blank=True)
+    whatsapp = models.CharField("Whatsapp", max_length=50, null=True, blank=True)
     logo = models.ImageField(upload_to = 'logos', null=True, blank=True, verbose_name='Logomarca')
     contact_person = models.CharField("Contato", max_length=200)
-    email = models.EmailField("Email", max_length=254)
-    website = models.CharField("Website", max_length=254)
-    twitter = models.CharField("Twitter", max_length=254)
-    facebook = models.CharField("Facebook", max_length=254)
+    email = models.EmailField("Email", max_length=254, null=True, blank=True)
+    website = models.CharField("Website", max_length=254, null=True, blank=True)
+    twitter = models.CharField("Twitter", max_length=254, null=True, blank=True)
+    facebook = models.CharField("Facebook", max_length=254, null=True, blank=True)
     partnership = models.ManyToManyField("Partnership", verbose_name="Parceria")
     address = models.ForeignKey("Address", verbose_name="Endereço")
 
